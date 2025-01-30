@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище haModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Abilities">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AbilityName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pokemons">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TypeId" Type="int" Nullable="false" />
+          <Property Name="AbilityId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Types">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Pokemons__Abilit__33D4B598">
+          <End Role="Abilities" Type="Self.Abilities" Multiplicity="1" />
+          <End Role="Pokemons" Type="Self.Pokemons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Abilities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pokemons">
+              <PropertyRef Name="AbilityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pokemons__TypeId__32E0915F">
+          <End Role="Types" Type="Self.Types" Multiplicity="1" />
+          <End Role="Pokemons" Type="Self.Pokemons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Types">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pokemons">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище haModelContainer">
+          <EntitySet Name="Abilities" EntityType="Self.Abilities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pokemons" EntityType="Self.Pokemons" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Types" EntityType="Self.Types" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Pokemons__Abilit__33D4B598" Association="Self.FK__Pokemons__Abilit__33D4B598">
+            <End Role="Abilities" EntitySet="Abilities" />
+            <End Role="Pokemons" EntitySet="Pokemons" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pokemons__TypeId__32E0915F" Association="Self.FK__Pokemons__TypeId__32E0915F">
+            <End Role="Types" EntitySet="Types" />
+            <End Role="Pokemons" EntitySet="Pokemons" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="haModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Abilities">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AbilityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Pokemons" Relationship="Self.FK__Pokemons__Abilit__33D4B598" FromRole="Abilities" ToRole="Pokemons" />
+        </EntityType>
+        <EntityType Name="Pokemons">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TypeId" Type="Int32" Nullable="false" />
+          <Property Name="AbilityId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Abilities" Relationship="Self.FK__Pokemons__Abilit__33D4B598" FromRole="Pokemons" ToRole="Abilities" />
+          <NavigationProperty Name="Types" Relationship="Self.FK__Pokemons__TypeId__32E0915F" FromRole="Pokemons" ToRole="Types" />
+        </EntityType>
+        <EntityType Name="Types">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Pokemons" Relationship="Self.FK__Pokemons__TypeId__32E0915F" FromRole="Types" ToRole="Pokemons" />
+        </EntityType>
+        <Association Name="FK__Pokemons__Abilit__33D4B598">
+          <End Role="Abilities" Type="Self.Abilities" Multiplicity="1" />
+          <End Role="Pokemons" Type="Self.Pokemons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Abilities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pokemons">
+              <PropertyRef Name="AbilityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pokemons__TypeId__32E0915F">
+          <End Role="Types" Type="Self.Types" Multiplicity="1" />
+          <End Role="Pokemons" Type="Self.Pokemons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Types">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pokemons">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="haEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Abilities" EntityType="Self.Abilities" />
+          <EntitySet Name="Pokemons" EntityType="Self.Pokemons" />
+          <EntitySet Name="Types" EntityType="Self.Types" />
+          <AssociationSet Name="FK__Pokemons__Abilit__33D4B598" Association="Self.FK__Pokemons__Abilit__33D4B598">
+            <End Role="Abilities" EntitySet="Abilities" />
+            <End Role="Pokemons" EntitySet="Pokemons" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pokemons__TypeId__32E0915F" Association="Self.FK__Pokemons__TypeId__32E0915F">
+            <End Role="Types" EntitySet="Types" />
+            <End Role="Pokemons" EntitySet="Pokemons" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище haModelContainer" CdmEntityContainer="haEntities">
+          <EntitySetMapping Name="Abilities">
+            <EntityTypeMapping TypeName="haModel.Abilities">
+              <MappingFragment StoreEntitySet="Abilities">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AbilityName" ColumnName="AbilityName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pokemons">
+            <EntityTypeMapping TypeName="haModel.Pokemons">
+              <MappingFragment StoreEntitySet="Pokemons">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="AbilityId" ColumnName="AbilityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Types">
+            <EntityTypeMapping TypeName="haModel.Types">
+              <MappingFragment StoreEntitySet="Types">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
